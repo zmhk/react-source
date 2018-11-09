@@ -1,0 +1,15 @@
+.counter{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.counter .btn-action{
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 25px;
+    border:1px solid #666;
+    margin: 0 10px;
+}
