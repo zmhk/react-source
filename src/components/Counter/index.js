@@ -9,7 +9,8 @@ class Counter extends Component {
     constructor(props) {
         super(...arguments);
         this.state = {
-            count: store.getState()[props.caption]
+            count: store.getState()[props.caption],
+            unsubscribe:f=>f
         }
     }
     static propTypes = {
@@ -53,12 +54,12 @@ class Counter extends Component {
     }
 
     componentDidMount() {
-        store.subscribe(this.getValue);
+        this.state.unsubscribe=store.subscribe(this.getValue);
     }
 
-    // componentWillMount() {
-    //     store.unsubscribe(this.getValue);
-    // }
+    componentWillMount() {
+        this.state.unsubscribe(this.getValue);
+    }
 }
 
 export default Counter

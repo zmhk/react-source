@@ -7,7 +7,8 @@ class ControlPanel extends Component {
     constructor() {
         super(...arguments);
         this.state={
-            summary: this.getCurrentSummary()
+            summary: this.getCurrentSummary(),
+            unsubscribe:f=>f
         }
     }
 
@@ -40,7 +41,11 @@ class ControlPanel extends Component {
     }
 
     componentDidMount(){
-        store.subscribe(this.onChange);
+        this.state.unsubscribe=store.subscribe(this.onChange);
+    }
+
+    componentWillMount(){
+        this.state.unsubscribe(this.onChange);
     }
 }
 
