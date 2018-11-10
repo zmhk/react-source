@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CounterStore from '../../flux/stores/CounterStore'
-import * as actions from '../../flux/action'
+import store from '../../redux/store'
+import * as actions from '../../redux/action'
 import cn from 'classnames'
 import './style.css'
 
@@ -9,7 +9,7 @@ class Counter extends Component {
     constructor(props) {
         super(...arguments);
         this.state = {
-            count: CounterStore.getCounterValues()[props.caption]
+            count: store.getState()[props.caption]
         }
     }
     static propTypes = {
@@ -21,16 +21,16 @@ class Counter extends Component {
     }
     getValue = () => {
         this.setState({
-            count: CounterStore.getCounterValues()[this.props.caption]
+            count: store.getState()[this.props.caption]
         });
     }
     onChang = (isAdd) => {
         const {caption}=this.props;
         if (isAdd) {
-            actions.increment(caption);
+            store.dispatch(actions.increment(caption))
             return;
         }
-        actions.decrement(caption);
+        store.dispatch(actions.decrement(caption))
     }
     addClick = () => {
         this.onChang(true);
@@ -53,12 +53,12 @@ class Counter extends Component {
     }
 
     componentDidMount() {
-        CounterStore.addChangeListener(this.getValue);
+        store.subscribe(this.getValue);
     }
 
-    componentWillMount() {
-        CounterStore.removeChangeListener(this.getValue);
-    }
+    // componentWillMount() {
+    //     store.unsubscribe(this.getValue);
+    // }
 }
 
 export default Counter

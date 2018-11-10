@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import Counter from '../../components/Counter'
-import SummaryStore from '../../flux/stores/SummaryStore'
+import store from '../../redux/store'
 import './style.css'
 
 class ControlPanel extends Component {
     constructor() {
         super(...arguments);
         this.state={
-            summary: SummaryStore.getSummmary()
+            summary: this.getCurrentSummary()
         }
     }
 
-    getCurrentSummary=()=>{
+    onChange=()=>{
+        let summary=this.getCurrentSummary();
         this.setState({
-            summary:SummaryStore.getSummmary()
-        });
+            summary: summary
+        })
+    }
+
+    getCurrentSummary=()=>{
+        const values=store.getState();
+        let summary=0;
+        for(let key in values){
+          if(values.hasOwnProperty(key)){
+            summary+=values[key];
+          }
+        }
+        return summary;
     }
     render() {
         return (
@@ -28,10 +40,7 @@ class ControlPanel extends Component {
     }
 
     componentDidMount(){
-        SummaryStore.addChangeListener(this.getCurrentSummary)
-    }
-    componentWillUnmount(){
-        SummaryStore.removeChangeListener(this.getCurrentSummary);
+        store.subscribe(this.onChange);
     }
 }
 
