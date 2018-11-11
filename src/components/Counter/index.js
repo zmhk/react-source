@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import * as actions from '../../redux/action'
 import cn from 'classnames'
 import './style.css'
 
 class Counter extends Component {
-    constructor(props,context) {
+    constructor(props) {
         super(...arguments);
-        this.state = {
-            count: context.store.getState()[props.caption],
-            unsubscribe:f=>f
-        }
     }
-    static contextTypes={
-        store:PropTypes.object
-    }
+
     static propTypes = {
         caption: PropTypes.string.isRequired,
         initialValue: PropTypes.number.isRequired
@@ -22,18 +17,13 @@ class Counter extends Component {
     static defaultProps = {
         initialValue: 5
     }
-    getValue = () => {
-        this.setState({
-            count: this.context.store.getState()[this.props.caption]
-        });
-    }
     onChang = (isAdd) => {
         const {caption}=this.props;
         if (isAdd) {
-            this.context.store.dispatch(actions.increment(caption))
+            this.props.onIncrement()
             return;
         }
-        this.context.store.dispatch(actions.decrement(caption))
+        this.props.onDecrement();
     }
     addClick = () => {
         this.onChang(true);
@@ -42,26 +32,34 @@ class Counter extends Component {
         this.onChang(false);
     }
     render() {
-        const { caption } = this.props;
-        const { count } = this.state;
+        const { caption,values } = this.props;
         return (
             <div className={cn("counter", {
                 checked: false
             })}>
                 <span className="btn-action" onClick={this.addClick}>+</span>
                 <span className="btn-action" onClick={this.minusClick}>-</span>
-                <span>{caption}:{count}</span>
+                <span>{caption}:{values}</span>
             </div>
         )
     }
+}
 
-    componentDidMount() {
-        this.state.unsubscribe=this.context.store.subscribe(this.getValue);
-    }
+const mapStateToProps=(state,ownProps)=>{
+   return {
+       value:state[ownProps.caption]
+   }
+}
 
-    componentWillMount() {
-        this.state.unsubscribe(this.getValue);
+const mapDispatchToProps=(dispatch,ownProps)=>{
+    return {
+       onIncrement:()=>{
+           dispatch(actions.increment(ownProps.caption))
+       },
+       onDecrement:()=>{
+           dispatch(actions.decrement(ownProps.caption));
+       }
     }
 }
 
-export default Counter
+export default connect(mapStateToProps,mapDispatchToProps)(Counter)
