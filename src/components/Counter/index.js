@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import store from '../../redux/store'
 import * as actions from '../../redux/action'
 import cn from 'classnames'
 import './style.css'
 
 class Counter extends Component {
-    constructor(props) {
+    constructor(props,context) {
         super(...arguments);
         this.state = {
-            count: store.getState()[props.caption],
+            count: context.store.getState()[props.caption],
             unsubscribe:f=>f
         }
+    }
+    static contextTypes={
+        store:PropTypes.object
     }
     static propTypes = {
         caption: PropTypes.string.isRequired,
@@ -22,16 +24,16 @@ class Counter extends Component {
     }
     getValue = () => {
         this.setState({
-            count: store.getState()[this.props.caption]
+            count: this.context.store.getState()[this.props.caption]
         });
     }
     onChang = (isAdd) => {
         const {caption}=this.props;
         if (isAdd) {
-            store.dispatch(actions.increment(caption))
+            this.context.store.dispatch(actions.increment(caption))
             return;
         }
-        store.dispatch(actions.decrement(caption))
+        this.context.store.dispatch(actions.decrement(caption))
     }
     addClick = () => {
         this.onChang(true);
@@ -54,7 +56,7 @@ class Counter extends Component {
     }
 
     componentDidMount() {
-        this.state.unsubscribe=store.subscribe(this.getValue);
+        this.state.unsubscribe=this.context.store.subscribe(this.getValue);
     }
 
     componentWillMount() {

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import Counter from '../../components/Counter'
-import store from '../../redux/store'
+import propTypes from 'prop-types'
 import './style.css'
 
 class ControlPanel extends Component {
-    constructor() {
+    constructor(props,context) {
         super(...arguments);
         this.state={
             summary: this.getCurrentSummary(),
             unsubscribe:f=>f
         }
+    }
+
+    static contextTypes={
+        store:propTypes.object
     }
 
     onChange=()=>{
@@ -20,7 +24,7 @@ class ControlPanel extends Component {
     }
 
     getCurrentSummary=()=>{
-        const values=store.getState();
+        const values=this.context.store.getState();
         let summary=0;
         for(let key in values){
           if(values.hasOwnProperty(key)){
@@ -41,7 +45,7 @@ class ControlPanel extends Component {
     }
 
     componentDidMount(){
-        this.state.unsubscribe=store.subscribe(this.onChange);
+        this.state.unsubscribe=this.context.store.subscribe(this.onChange);
     }
 
     componentWillMount(){
