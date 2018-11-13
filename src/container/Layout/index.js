@@ -2,6 +2,9 @@ import React,{Component} from 'react'
 import './style.css'
 
 class Layout extends Component{
+    selectedChange=()=>{
+        console.log(1);
+    }
     render(){
         return(
             <div className="layout">

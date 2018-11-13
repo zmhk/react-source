@@ -1,12 +1,16 @@
-import {createStore} from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducer'
 
-const initValues = { 
+const win = window;
+
+const initValues = {
     'First': 0,
     'Second': 10,
     'Third': 20
 }
 
-const store =createStore(reducer,initValues);
+const storeEnhancers = compose(applyMiddleware(), (win && win.devToolsExtension) ? win.devToolsExtension() : f => f)
+
+const store = createStore(reducer, initValues, storeEnhancers);
 
 export default store;
