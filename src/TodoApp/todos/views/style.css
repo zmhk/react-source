@@ -1,0 +1,30 @@
+.add-todo{
+    width: 100%;
+    padding: 20px;
+}
+
+.add-todo-input{
+    height: 30px;
+    line-height: 30px;
+    font-size: 25px;
+    text-align: center;
+    border:1px solid #222;
+    vertical-align: middle;
+}
+
+.add-todo-btn{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #999;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.todo-item span{
+    margin-right: 5px;
+}
+
+.completed{
+    text-decoration-line: line-through;
+}
