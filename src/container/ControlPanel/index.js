@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Counter from '../../components/Counter'
 import propTypes from 'prop-types'
+import hocComponent from '../../utils/hocComponent'
 import './style.css'
+
+const NewCounter=hocComponent(Counter);
 
 class ControlPanel extends Component {
     constructor(props) {
@@ -12,9 +15,9 @@ class ControlPanel extends Component {
     render() {
         return (
             <div className="controlpanel">
-                <Counter caption="First"/>
-                <Counter caption="Second"/>
-                <Counter caption="Third"/>
+                <NewCounter caption="First"/>
+                <NewCounter caption="Second"/>
+                <NewCounter caption="Third"/>
                 <div>总数：{this.props.values}</div>
             </div>
         )

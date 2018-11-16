@@ -46,8 +46,9 @@ class Counter extends Component {
 }
 
 const mapStateToProps=(state,ownProps)=>{
+    console.log(ownProps);
    return {
-       value:state[ownProps.caption]
+       values:state[ownProps.caption]
    }
 }
 
