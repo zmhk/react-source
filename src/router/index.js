@@ -6,6 +6,7 @@ import About from "../container/About";
 import ControlPanel from "../container/ControlPanel";
 import Layout from "../container/Layout"
 import AddUserProp from "../container/AddUserProp"
+import Weather from "../container/Weather"
 
 export default () => (
     <div>
@@ -14,6 +15,7 @@ export default () => (
             <Route path="/about" component={About} />
             <Route path="/controlpanel" component={ControlPanel} />
             <Route path="/layout" component={Layout} />
+            <Route path="/weather" component={Weather} />
             <Route path="/adduserprop" render={()=>(<AddUserProp>{(user)=>(<div>{user}</div>)}</AddUserProp>)} />
             <Redirect to="/" />
         </Switch>
