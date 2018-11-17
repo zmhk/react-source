@@ -32,7 +32,7 @@ class Counter extends Component {
         this.onChang(false);
     }
     render() {
-        const { caption,values } = this.props;
+        const { caption,values,name } = this.props;
         return (
             <div className={cn("counter", {
                 checked: false

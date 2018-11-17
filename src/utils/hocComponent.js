@@ -6,7 +6,8 @@ const hocComponent=(WrappedComponent)=>{
         super(...arguments);
        }
        render(){
-           return <WrappedComponent {...this.props}/>
+           const {name,...others}=this.props
+           return <WrappedComponent {...others}/>
        }
    }
 }

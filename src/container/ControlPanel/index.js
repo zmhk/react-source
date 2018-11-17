@@ -15,9 +15,9 @@ class ControlPanel extends Component {
     render() {
         return (
             <div className="controlpanel">
-                <NewCounter caption="First"/>
-                <NewCounter caption="Second"/>
-                <NewCounter caption="Third"/>
+                <NewCounter caption="First" name="test"/>
+                <NewCounter caption="Second" name="test"/>
+                <NewCounter caption="Third" name="test"/>
                 <div>总数：{this.props.values}</div>
             </div>
         )
