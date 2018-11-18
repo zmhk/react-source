@@ -35,7 +35,6 @@ const getCurrentSummary=(values)=>{
 }
 
 const mapStateToProps=(state,ownProps)=>{
-    console.log(state);
     return {
         values:getCurrentSummary(state)
     }

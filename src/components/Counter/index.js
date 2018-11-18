@@ -46,7 +46,6 @@ class Counter extends Component {
 }
 
 const mapStateToProps=(state,ownProps)=>{
-    console.log(ownProps);
    return {
        values:state[ownProps.caption]
    }
@@ -55,7 +54,7 @@ const mapStateToProps=(state,ownProps)=>{
 const mapDispatchToProps=(dispatch,ownProps)=>{
     return {
        onIncrement:()=>{
-           dispatch(actions.increment(ownProps.caption))
+        dispatch(actions.asyncIncrement(ownProps.caption))
        },
        onDecrement:()=>{
            dispatch(actions.decrement(ownProps.caption));

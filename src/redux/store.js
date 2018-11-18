@@ -1,7 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import reducer from './reducer'
 
 const win = window;
+const middlewares = [thunkMiddleware];
 
 const initValues = {
     'First': 0,
@@ -9,7 +11,10 @@ const initValues = {
     'Third': 20
 }
 
-const storeEnhancers = compose(applyMiddleware(), (win && win.devToolsExtension) ? win.devToolsExtension() : f => f)
+const storeEnhancers = compose(
+    applyMiddleware(...middlewares),
+    (win && win.devToolsExtension) ? win.devToolsExtension() : f => f
+)
 
 const store = createStore(reducer, initValues, storeEnhancers);
 
