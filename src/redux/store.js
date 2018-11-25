@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import {doNothingMiddleware} from '../middlewares'
 import reducer from './reducer'
 
 const win = window;
 const middlewares = [thunkMiddleware];
+middlewares.push(doNothingMiddleware);
 
 const initValues = {
     'First': 0,

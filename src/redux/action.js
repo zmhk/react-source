@@ -17,7 +17,6 @@ export const decrement = (counterCaption) => {
 export const asyncIncrement = (counterCaption) => {
     return (dispatch) => {
         setTimeout(() => {
-            console.log(1);
             dispatch(increment(counterCaption))
         }, 1000)
     }
